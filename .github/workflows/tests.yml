@@ -55,7 +55,7 @@ jobs:
 
       - name: Copy Environment File
         run: cp .env.example .env
-      
+
       - name: Override DB host for GitHub CI
         run: |
           echo "DB_CONNECTION=mysql" >> .env
