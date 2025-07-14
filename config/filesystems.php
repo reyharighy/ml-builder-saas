@@ -60,6 +60,12 @@ return [
             'report' => false,
         ],
 
+        'shared' => [
+            'driver' => 'local',
+            'root' => base_path('../shared-data'),
+            'throw' => false,
+            'report' => false,
+        ],
     ],
 
     /*
