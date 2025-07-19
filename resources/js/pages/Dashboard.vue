@@ -5,6 +5,12 @@ import { Head, useForm } from '@inertiajs/vue3';
 import PlaceholderPattern from '../components/PlaceholderPattern.vue';
 import { PlusCircle } from 'lucide-vue-next';
 
+interface Props {
+    status?: string;
+}
+
+defineProps<Props>();
+
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Dashboard',
@@ -49,6 +55,9 @@ const onFileChange = (event: Event) => {
                 </div>
                 <div class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
                     <PlaceholderPattern />
+                    <div v-if="status === 'dataset-uploaded'" class="mt-2 text-sm font-medium text-green-600">
+                        A new dataset has been successfully uploaded.
+                    </div>
                 </div>
                 <div class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
                     <PlaceholderPattern />
