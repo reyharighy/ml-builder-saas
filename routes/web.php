@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
@@ -20,7 +21,7 @@ Route::post('upload-csv', function(FormRequest $request) {
 
     Storage::disk('shared')
         ->putFileAs(
-            'datasets', $file, 
+            Auth::user()->id, $file,
             $file->getClientOriginalName()
         );
 })->name('upload-csv');
