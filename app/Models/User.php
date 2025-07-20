@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Ramsey\Uuid\Uuid;
@@ -49,11 +50,11 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Generate a new UUID for the model.
+     * Generate a new UUID v.7 for the model.
      */
     public function newUniqueId()
     {
-        return (string) Uuid::uuid4();
+        return (string) Uuid::uuid7();
     }
 
     /**
@@ -62,5 +63,13 @@ class User extends Authenticatable implements MustVerifyEmail
     public function uniqueIds()
     {
         return ['id'];
+    }
+
+    /**
+     * Get the projects that belong to the user.
+     */
+    public function projects(): HasMany
+    {
+        return $this->hasMany(Project::class);
     }
 }
