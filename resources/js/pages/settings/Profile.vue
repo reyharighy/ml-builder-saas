@@ -79,7 +79,7 @@ const submit = () => {
 
                     <div v-if="mustVerifyEmail && !user.email_verified_at">
                         <p class="-mt-4 text-sm text-muted-foreground">
-                            Your email address is changed. You need to verify the new email address.
+                            Your email address is unverified.
                             <Link
                                 :href="route('verification.send')"
                                 method="post"
