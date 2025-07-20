@@ -1,24 +1,24 @@
 <script setup lang="ts">
 import { Head } from '@inertiajs/vue3';
-
 import AppearanceTabs from '@/components/AppearanceTabs.vue';
 import HeadingSmall from '@/components/HeadingSmall.vue';
 import { type BreadcrumbItem } from '@/types';
-
 import AppLayout from '@/layouts/AppLayout.vue';
 import SettingsLayout from '@/layouts/settings/Layout.vue';
+import { breadcrumbsData } from '@/composables/pages-data/breadcrumbs';
 
-const breadcrumbItems: BreadcrumbItem[] = [
-    {
-        title: 'Appearance settings',
-        href: '/settings/appearance',
-    },
-];
+interface Props {
+    routeName: string;
+}
+
+const props = defineProps<Props>();
+
+const breadcrumbs: BreadcrumbItem[] = breadcrumbsData[props.routeName] || [];
 </script>
 
 <template>
-    <AppLayout :breadcrumbs="breadcrumbItems">
-        <Head title="Appearance settings" />
+    <AppLayout :breadcrumbs="breadcrumbs">
+        <Head :title="breadcrumbs.at(0)?.title" />
 
         <SettingsLayout>
             <div class="space-y-6">

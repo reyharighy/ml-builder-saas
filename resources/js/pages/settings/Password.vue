@@ -4,19 +4,20 @@ import AppLayout from '@/layouts/AppLayout.vue';
 import SettingsLayout from '@/layouts/settings/Layout.vue';
 import { Head, useForm } from '@inertiajs/vue3';
 import { ref } from 'vue';
-
 import HeadingSmall from '@/components/HeadingSmall.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { type BreadcrumbItem } from '@/types';
+import { breadcrumbsData } from '@/composables/pages-data/breadcrumbs';
 
-const breadcrumbItems: BreadcrumbItem[] = [
-    {
-        title: 'Password settings',
-        href: '/settings/password',
-    },
-];
+interface Props {
+    routeName: string;
+}
+
+const props = defineProps<Props>();
+
+const breadcrumbs: BreadcrumbItem[] = breadcrumbsData[props.routeName] || [];
 
 const passwordInput = ref<HTMLInputElement | null>(null);
 const currentPasswordInput = ref<HTMLInputElement | null>(null);
@@ -51,8 +52,8 @@ const updatePassword = () => {
 </script>
 
 <template>
-    <AppLayout :breadcrumbs="breadcrumbItems">
-        <Head title="Password settings" />
+    <AppLayout :breadcrumbs="breadcrumbs">
+        <Head :title="breadcrumbs.at(0)?.title" />
 
         <SettingsLayout>
             <div class="space-y-6">

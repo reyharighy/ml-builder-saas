@@ -66,6 +66,14 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * Get the datasets that belong to the user.
+     */
+    public function datasets(): HasMany
+    {
+        return $this->hasMany(Dataset::class);
+    }
+
+    /**
      * Get the projects that belong to the user.
      */
     public function projects(): HasMany

@@ -8,18 +8,4 @@ use Illuminate\Support\Facades\Storage;
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('projects', ProjectController::class);
-
-    Route::post('upload-csv', function(FormRequest $request) {
-        $request->validate(['csv_file' => 'required|mimes:csv']);
-
-        $file = $request->file('csv_file');
-
-        Storage::disk('shared')
-            ->putFileAs(
-                Auth::user()->id, $file,
-                'dataset.csv'
-            );
-
-        return back()->with('status', 'dataset-uploaded');
-    })->name('upload-csv');
 });

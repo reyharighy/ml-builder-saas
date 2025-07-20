@@ -3,17 +3,19 @@ import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/vue3';
 import PlaceholderPattern from '../components/PlaceholderPattern.vue';
+import { breadcrumbsData } from '@/composables/pages-data/breadcrumbs';
 
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Dashboard',
-        href: route('dashboard'),
-    },
-];
+interface Props {
+    routeName: string;
+}
+
+const props = defineProps<Props>();
+
+const breadcrumbs: BreadcrumbItem[] = breadcrumbsData[props.routeName] || [];
 </script>
 
 <template>
-    <Head title="Dashboard" />
+    <Head :title="breadcrumbs.at(0)?.title" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4 overflow-x-auto">

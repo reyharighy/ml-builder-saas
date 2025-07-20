@@ -14,7 +14,6 @@ export interface NavItem {
     title: string;
     href: string;
     icon?: LucideIcon;
-    isActive?: boolean;
 }
 
 export type AppPageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
@@ -27,13 +26,40 @@ export type AppPageProps<T extends Record<string, unknown> = Record<string, unkn
 };
 
 export interface User {
-    id: number;
+    id: string;
     name: string;
     email: string;
     avatar?: string;
     email_verified_at: string | null;
     created_at: string;
     updated_at: string;
+
+    // Children
+    datasets?: Dataset[];
+    projects?: Project[];
 }
 
-export type BreadcrumbItemType = BreadcrumbItem;
+export interface Dataset {
+    id: string;
+    user_id: string;
+    name: string;
+    description: string;
+    filename: string;
+    created_at: string;
+    updated_at: string;
+
+    // Parent
+    user: User;
+}
+
+export interface Project {
+    id: string;
+    user_id: string;
+    name: string;
+    description: string;
+    created_at: string;
+    updated_at: string;
+
+    // Parent
+    user: User;
+}

@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Projects;
+namespace App\Http\Controllers\Datasets;
 
 use App\Http\Controllers\Controller;
-use App\Models\Project;
+use App\Models\Dataset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
-class ProjectController extends Controller
+class DatasetController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,11 +16,12 @@ class ProjectController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-        $projects = Project::where('user_id', $user->id)->get();
+        $datasets = Dataset::where('user_id', $user->id)->get();
 
-        return Inertia::render('projects/ProjectsIndex', [
+        return Inertia::render('datasets/DatasetsIndex', [
+            'status' => $request->session()->get('status'),
             'routeName' => $request->route()->getName(),
-            'projects' => $projects,
+            'datasets' => $datasets,
         ]);
     }
 

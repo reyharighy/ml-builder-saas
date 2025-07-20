@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
-
 import DeleteUser from '@/components/DeleteUser.vue';
 import HeadingSmall from '@/components/HeadingSmall.vue';
 import InputError from '@/components/InputError.vue';
@@ -11,20 +10,17 @@ import AppLayout from '@/layouts/AppLayout.vue';
 import SettingsLayout from '@/layouts/settings/Layout.vue';
 import { type BreadcrumbItem, type User } from '@/types';
 import { ref } from 'vue';
+import { breadcrumbsData } from '@/composables/pages-data/breadcrumbs';
 
 interface Props {
     mustVerifyEmail: boolean;
     status?: string;
+    routeName: string;
 }
 
-defineProps<Props>();
+const props = defineProps<Props>();
 
-const breadcrumbItems: BreadcrumbItem[] = [
-    {
-        title: 'Profile settings',
-        href: '/settings/profile',
-    },
-];
+const breadcrumbs: BreadcrumbItem[] = breadcrumbsData[props.routeName] || [];
 
 const page = usePage();
 const user = page.props.auth.user as User;
@@ -49,8 +45,8 @@ const submit = () => {
 </script>
 
 <template>
-    <AppLayout :breadcrumbs="breadcrumbItems">
-        <Head title="Profile settings" />
+    <AppLayout :breadcrumbs="breadcrumbs">
+        <Head :title="breadcrumbs.at(0)?.title" />
 
         <SettingsLayout>
             <div class="flex flex-col space-y-6">
