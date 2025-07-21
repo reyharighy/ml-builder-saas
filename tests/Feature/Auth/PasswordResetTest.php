@@ -56,7 +56,7 @@ test('password can be reset with valid token', function () {
 
     $user = User::factory()->create();
 
-    $this->post('/forgot-password', ['email' => $user->email]);
+    $this->post(route('password.email'), ['email' => $user->email]);
 
     Notification::assertSentTo($user, ResetPassword::class, function ($notification) use ($user) {
         $response = $this->post(route('password.store'), [
@@ -79,7 +79,7 @@ test('password cannnot be reset with invalid token', function () {
 
     $user = User::factory()->create();
 
-    $this->post('/forgot-password', ['email' => $user->email]);
+    $this->post(route('password.email'), ['email' => $user->email]);
 
     Notification::assertSentTo($user, ResetPassword::class, function () use ($user) {
         $response = $this->post(route('password.store'), [
