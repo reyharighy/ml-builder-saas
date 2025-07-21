@@ -2,7 +2,7 @@
 
 use App\Models\User;
 
-test('projects index screen can be rendered if the email is verified', function () {
+test('datasets index screen can be rendered if the email is verified', function () {
     $user = User::factory()->create([
         'email' => 'test@example.com',
         'password' => '@Password123',
@@ -15,7 +15,7 @@ test('projects index screen can be rendered if the email is verified', function 
 
     $this->assertAuthenticated();
 
-    $response = $this->actingAs($user)->get(route('projects.index'));
+    $response = $this->actingAs($user)->get(route('datasets.index'));
 
     $response->assertStatus(200);
 });
@@ -33,7 +33,7 @@ test('redirect the user to verify their email when accessing datasets index scre
 
     $this->assertAuthenticated();
 
-    $response = $this->actingAs($user)->get(route('projects.index'))
+    $response = $this->actingAs($user)->get(route('datasets.index'))
         ->assertRedirect(route('verification.notice'));
 
     $response->assertStatus(302);
